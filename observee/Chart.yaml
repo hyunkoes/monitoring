@@ -1,0 +1,17 @@
+apiVersion: v2
+name: observee
+version: 0.1.0
+appVersion: "1.16.0"
+description: kube-prometheus-stack for Target observee cluster
+type: application
+keywords: ["devops", "observability", "infra"]
+home: https://github.com/hyunkoes/monitoring
+sources: ["https://github.com/hyunkoes/monitoring"]
+maintainers:
+  - name: hyunkoes hyunseok.Choi
+    email: chs29359685@gmail.com
+dependencies:
+  - name: kube-prometheus-stack
+    repository: https://prometheus-community.github.io/helm-charts
+    version: 26.1.0
+    condition: kube-prometheus-stack.enabled
