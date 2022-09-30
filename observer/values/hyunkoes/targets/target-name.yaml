@@ -1,0 +1,42 @@
+kube-prometheus-stack:
+  enabled: false
+
+thanos:
+  enabled: true
+
+  existingObjstoreSecret: objstore-secret
+  
+  ruler:
+    enabled: false
+
+  minio:
+    enabled: false
+
+  storegateway:
+    enabled: false
+
+  compactor:
+    enabled: false
+
+  queryFrontend:
+    enabled: false
+
+  bucketweb:
+    enabled: false
+
+  receive:
+    enabled: false
+
+  metrics:
+    enabled: false
+
+  query:
+    enabled: true
+    logLevel: debug
+    logFormat: logfmt
+
+    stores:
+    - dns+{your domain}:443
+    extraFlags:
+    - "--grpc-client-tls-secure"
+    - "--grpc-client-server-name={your domain}"

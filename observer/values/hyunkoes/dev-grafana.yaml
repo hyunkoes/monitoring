@@ -1,0 +1,33 @@
+thanos:
+  enabled: false
+  
+kube-prometheus-stack:
+  enabled: true
+
+  alertmanager:
+    enabled: false
+
+  serviceMonitor:
+    enabled: false
+
+  nodeExporter:
+    enabled: false
+
+  prometheusOperator:
+    enabled: false
+
+  prometheus:
+    enabled: false # can make true
+
+  grafana:
+    enabled: true
+    grafana.ini:
+      server:
+        domain: {your domain}
+    ingress:
+      enabled: true
+      hosts:
+        - {your domain}
+      tls:
+        - hosts:
+          - {your domain}

@@ -1,0 +1,60 @@
+kube-prometheus-stack:
+  enabled: false
+
+thanos:
+  enabled: true
+
+  existingObjstoreSecret: objstore-secret
+
+  ruler:
+    enabled: false
+
+  minio:
+    enabled: false
+
+  storegateway:
+    enabled: true
+
+  bucketweb:
+    enabled: false
+
+  receive:
+    enabled: false
+
+  metrics:
+    enabled: false
+
+  compactor:
+    enabled: true
+    retentionResolutionRaw: 30d
+    retentionResolution5m: 30d
+    retentionResolution1h: 10y
+    consistencyDelay: 30m
+
+  query:
+    enabled: true
+    logLevel: debug
+    logFormat: logfmt
+    dnsDiscovery:
+      enabled: false
+    stores:
+    - target-{target cluster name}-thanos-query-grpc:10901
+    - observer-thanos-storegateway:10901
+  queryFrontend:
+    enabled: true
+    config: |-
+      type: IN-MEMORY
+      config:
+        max_size: 512MB
+        max_size_items: 100
+        validity: 100s
+    extraFlags:
+    - --query-range.split-interval=24h
+    - --query-range.max-retries-per-request=10
+    - --query-frontend.log-queries-longer-than=0
+    service:
+      type: NodePort
+      ports:
+        http: 9090
+      nodePorts:
+        http: 30007
